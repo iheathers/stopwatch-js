@@ -1,44 +1,33 @@
-class Timer {
-  constructor(durationInput, startButton, pauseButton) {
-    this.durationInput = durationInput;
-    this.startButton = startButton;
-    this.pauseButton = pauseButton;
+// Don't forget .js file extension
 
-    this.startButton.addEventListener('click', this.start);
-    this.pauseButton.addEventListener('click', this.pause);
-  }
-
-  start = () => {
-    console.log('Starting Timer');
-    console.log(this);
-    this.intervalId = setInterval(this.tick, 1000);
-    console.log(this.intervalId);
-  };
-
-  pause = () => {
-    console.log('Pausing the Timer');
-    clearInterval(this.intervalId);
-  };
-
-  tick = () => {
-    if (this.timeRemaining <= 0) {
-      this.pause();
-    } else {
-      this.timeRemaining = this.timeRemaining - 1;
-    }
-  };
-
-  get timeRemaining() {
-    return parseInt(this.durationInput.value);
-  }
-
-  set timeRemaining(time) {
-    this.durationInput.value = time;
-  }
-}
+import Timer from './timer.js';
 
 const durationInput = document.querySelector('#duration_input');
 const startButton = document.querySelector('#start_btn');
 const pauseButton = document.querySelector('#pause_btn');
+const watch = document.querySelector('#watch');
 
-const timer = new Timer(durationInput, startButton, pauseButton);
+const watchRadius = parseFloat(watch.getAttribute('r'));
+const watchPerimeter = 2 * watchRadius * Math.PI;
+watch.setAttribute('stroke-dasharray', watchPerimeter);
+
+let counter = 0;
+let duration;
+
+const timer = new Timer(durationInput, startButton, pauseButton, {
+  onStart(totalDuration) {
+    console.log('onStart: ');
+    duration = totalDuration;
+  },
+  onTick() {
+    console.log('onTick: ');
+    watch.setAttribute(
+      'stroke-dashoffset',
+      (-watchPerimeter / (duration * 10)) * counter
+    );
+    counter++;
+  },
+  onComplete() {
+    console.log('onComplete: ');
+  },
+});

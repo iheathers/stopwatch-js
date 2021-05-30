@@ -5,11 +5,37 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Stopwatch</title>
+    <link rel="stylesheet" href="style.css" />
+    <script
+      src="https://kit.fontawesome.com/6fa123ce5f.js"
+      crossorigin="anonymous"
+    ></script>
   </head>
   <body>
-    <input id="duration_input" type="number" value="30" />
-    <button id="start_btn">Start</button>
-    <button id="pause_btn">Pause</button>
-    <script src="index.js"></script>
+    <svg width="400" height="400">
+      <circle
+        id="watch"
+        r="150"
+        cx="200"
+        cy="200"
+        fill="transparent"
+        stroke="blue"
+        stroke-width="15"
+        transform="rotate(-90, 200, 200)"
+      ></circle>
+    </svg>
+    <div class="controls">
+      <input id="duration_input" type="text" value="60" size="4" />
+      <div class="btn-container">
+        <button id="start_btn" class="btn">
+          <i class="fas fa-play fa-3x"></i>
+        </button>
+        <button id="pause_btn" class="btn">
+          <i class="fas fa-pause fa-3x"></i>
+        </button>
+      </div>
+    </div>
+    <!-- <script src="timer.js"></script> -->
+    <script src="index.js" type="module"></script>
   </body>
 </html>
